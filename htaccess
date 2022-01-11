@@ -1,0 +1,30 @@
+# Começa a proteção do arquivo
+<files ~ "^.*\.([Hh][Tt][Aa])">
+order allow,deny
+deny from all
+satisfy all
+</files>
+# Termina a proteção do arquivo
+
+# Começa o bloqueio de acesso as pastas na url
+Options -Indexes
+# Termina o bloqueio de acesso as pastas na url
+
+# Começa a ocultar o php da url
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php
+# Termina de ocultar o php da url
+
+# Começa a proteção contra invasões por script
+RewriteEngine on
+RewriteCond %{QUERY_STRING} "script"
+RewriteRule .* - [F]
+# Termina a proteção contra invasões por script
+
+# Começa a passagem de http para https ssl
+RewriteEngine On 
+RewriteCond %{SERVER_PORT} 80 
+RewriteRule ^(.*)$  [R,L]
+# Termina a passagem de http para https ssl
